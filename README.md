@@ -27,12 +27,12 @@ This endpoint will verify if the Transaction received is within the last 60 seco
 e.g. if the system time is 12:00:01 and a transaction of time 11:59:40 arrives, then the application will get the Statistic corresponding to '40' second and add the amount to the total amount. Before adding the amount the application will check if the time on the Statistic is equal to time on Transaction (without the millis). If it is not equal then it will override the value on the Statistic with the Transaction values. 
 Only 60 seconds of Statistic information is stored and rest are discarded.
 
-**Request**
+*Request*
 ```
 POST /transactions
 ```
 
-**Request Body**
+*Request Body*
 ```
 {
 	"amount": 12.3,
@@ -40,7 +40,7 @@ POST /transactions
 }
 ```
 
-**Response**
+*Response*
 Returns empty body with 201 or 204 status code
 
 * 201:   when a transaction is added to Statistic
@@ -49,11 +49,11 @@ Returns empty body with 201 or 204 status code
  
 #### statistics
 This endpoint calculates statistics of all the transaction in the last 60 seconds. The overall statistics is calculated when a transaction is sent and this API call only retrieves the value.
-**Request**
+*Request*
 ```
 GET /statistics
 ```
-**Response**
+*Response*
 Returns statistics json with 200 status code
 ```
 {
