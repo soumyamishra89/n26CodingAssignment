@@ -2,8 +2,6 @@ package com.n26.assignment;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,8 +18,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class AssignmentApplicationTests {
 
-	private final Logger logger = LoggerFactory.getLogger(AssignmentApplicationTests.class);
-
 	@Autowired
 	private MockMvc mvc;
 
@@ -33,7 +29,6 @@ public class AssignmentApplicationTests {
 	 */
 	@Test
 	public void testTransactionNoContentWhenTimeIsNotValid() throws Exception {
-		logger.info("testTransactionNoContent: Start");
 		mvc.perform(MockMvcRequestBuilders.post("/transactions")//
 				.contentType("application/json")//
 				.content(//
@@ -41,17 +36,16 @@ public class AssignmentApplicationTests {
 								"\"timestamp\": 16342684532000}"//
 		))//
 				.andExpect(MockMvcResultMatchers.status().is(204));
-		logger.info("testTransactionNoContent: End");
+
 	}
 
 	@Test
 	public void testTransactionNoContentWhenBodyIsEmpty() throws Exception {
-		logger.info("testTransactionNoContent: Start");
 		mvc.perform(MockMvcRequestBuilders.post("/transactions")//
 				.contentType("application/json")//
 				.content("{}"))//
 				.andExpect(MockMvcResultMatchers.status().is(204));
-		logger.info("testTransactionNoContent: End");
+
 	}
 
 	/**
@@ -61,7 +55,6 @@ public class AssignmentApplicationTests {
 	 */
 	@Test
 	public void testTransactionCreated() throws Exception {
-		logger.info("testTransactionCreated: Start");
 		mvc.perform(MockMvcRequestBuilders.post("/transactions")//
 				.contentType("application/json")//
 				.content(//
@@ -70,12 +63,11 @@ public class AssignmentApplicationTests {
 								System.currentTimeMillis() + //
 								"}"))
 				.andExpect(MockMvcResultMatchers.status().is(201));
-		logger.info("testTransactionCreated: End");
+
 	}
 
 	@Test
 	public void testOverallStatistics() throws Exception {
-		logger.info("testOverallStatistics: Start");
 		mvc.perform(MockMvcRequestBuilders.post("/transactions")//
 				.contentType("application/json")//
 				.content(//
@@ -124,6 +116,5 @@ public class AssignmentApplicationTests {
 								"\"count\": 3" + //
 								"}"));
 
-		logger.info("testOverallStatistics: End");
 	}
 }

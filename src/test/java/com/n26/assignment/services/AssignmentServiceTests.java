@@ -65,17 +65,24 @@ public class AssignmentServiceTests {
 		Transaction transaction = new Transaction(50.2, System.currentTimeMillis());
 		HttpStatus httpStatus = assignmentService.postTransaction(transaction);
 		assertEquals(httpStatus, HttpStatus.CREATED);
-		transaction = new Transaction(29.8, System.currentTimeMillis() - 10000l);
+		transaction = new Transaction(50.8, System.currentTimeMillis() - 10000l);
 		httpStatus = assignmentService.postTransaction(transaction);
 		assertEquals(httpStatus, HttpStatus.CREATED);
-		transaction = new Transaction(29.8, System.currentTimeMillis() - 2);
+		transaction = new Transaction(21.3, System.currentTimeMillis() - 2);
 		httpStatus = assignmentService.postTransaction(transaction);
 		assertEquals(httpStatus, HttpStatus.CREATED);
-		transaction = new Transaction(29.8, System.currentTimeMillis());
+		transaction = new Transaction(200.47, System.currentTimeMillis());
 		httpStatus = assignmentService.postTransaction(transaction);
 		assertEquals(httpStatus, HttpStatus.CREATED);
-		transaction = new Transaction(29.8, System.currentTimeMillis());
+		transaction = new Transaction(129.42, System.currentTimeMillis());
 		httpStatus = assignmentService.postTransaction(transaction);
 		assertEquals(httpStatus, HttpStatus.CREATED);
+
+		OverallStatistics overallStatistics = assignmentService.getOverallStatistics();
+		assertEquals(90.44, overallStatistics.getAvg(), 0.0);
+		assertEquals(452.19, overallStatistics.getSum(), 0.0);
+		assertEquals(200.47, overallStatistics.getMax(), 0.0);
+		assertEquals(21.3, overallStatistics.getMin(), 0.0);
+		assertEquals(5, overallStatistics.getCount());
 	}
 }

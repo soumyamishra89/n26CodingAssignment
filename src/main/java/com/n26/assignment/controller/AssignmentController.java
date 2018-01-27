@@ -29,7 +29,7 @@ public class AssignmentController {
 	@PostMapping(value = { "/transactions" })
 	public ResponseEntity postTransaction(@RequestBody Transaction transaction) {
 		if (null == transaction)
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		HttpStatus httpStatus = service.postTransaction(transaction);
 		return new ResponseEntity<>(httpStatus);
 	}

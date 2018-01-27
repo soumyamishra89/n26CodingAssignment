@@ -155,6 +155,7 @@ public class AssignmentService {
 		overallstat.setMax(transaction.getAmount() > max ? transaction.getAmount() : max);
 		overallstat.setMin(transaction.getAmount() < min ? transaction.getAmount() : min);
 		overallstat.setCount(overallstat.getCount() + 1);
+		overallstat.setSum(Double.valueOf(decimalFormatter.format(overallstat.getSum())));
 		overallstat.setAvg(Double.valueOf(decimalFormatter.format(overallstat.getSum() / overallstat.getCount())));
 
 	}
@@ -171,6 +172,7 @@ public class AssignmentService {
 			overallstat.setMin(stat.getMin() < overallstat.getMin() ? stat.getMin() : overallstat.getMin());
 			overallstat.setCount(overallstat.getCount() + stat.getCount());
 		});
+		overallstat.setSum(Double.valueOf(decimalFormatter.format(overallstat.getSum())));
 		overallstat.setAvg(Double.valueOf(decimalFormatter.format(overallstat.getSum() / overallstat.getCount())));
 	}
 }
