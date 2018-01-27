@@ -5,6 +5,12 @@ package com.n26.assignment.services;
 
 import static org.junit.Assert.assertEquals;
 
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -84,5 +90,42 @@ public class AssignmentServiceTests {
 		assertEquals(200.47, overallStatistics.getMax(), 0.0);
 		assertEquals(21.3, overallStatistics.getMin(), 0.0);
 		assertEquals(5, overallStatistics.getCount());
+	}
+
+	@Test
+	public void testMultipleTransactionsWithOverallStatistics() throws InterruptedException {
+		long currentTime = System.currentTimeMillis();
+		List<Transaction> transactions = new ArrayList<>(30);
+		double sum = 0;
+
+		for (int i = 0; i < 30; i++) {
+			if (i < 10) {
+				transactions.add(new Transaction(i + 20.9, currentTime));
+				sum += (i + 20.9);
+			} else {
+				transactions.add(new Transaction(i + 76.5, currentTime - (i * 1000)));
+				sum += (i + 76.5);
+			}
+		}
+		ExecutorService executorService = Executors.newFixedThreadPool(30);
+		for (final Transaction transaction : transactions) {
+			executorService.execute(new Runnable() {
+
+				@Override
+				public void run() {
+					assignmentService.postTransaction(transaction);
+
+				}
+			});
+		}
+		// delay to wait for the transactions to complete
+		Thread.sleep(10000);
+		OverallStatistics overallStatistics = assignmentService.getOverallStatistics();
+		assertEquals(Double.valueOf(new DecimalFormat("###.##").format(sum / 30)), overallStatistics.getAvg(), 0.0);
+		assertEquals(sum, overallStatistics.getSum(), 0.0);
+		assertEquals(105.5, overallStatistics.getMax(), 0.0);
+		assertEquals(20.9, overallStatistics.getMin(), 0.0);
+		assertEquals(30, overallStatistics.getCount());
+
 	}
 }

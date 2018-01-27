@@ -11,8 +11,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -29,7 +27,6 @@ import com.n26.assignment.services.AssignmentService;
  */
 @RunWith(MockitoJUnitRunner.class)
 public class AssignmentControllerTests {
-	private final Logger logger = LoggerFactory.getLogger(AssignmentControllerTests.class);
 
 	@Mock
 	private AssignmentService assignmentService;

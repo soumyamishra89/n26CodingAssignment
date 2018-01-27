@@ -175,4 +175,5 @@ public class AssignmentService {
 		overallstat.setSum(Double.valueOf(decimalFormatter.format(overallstat.getSum())));
 		overallstat.setAvg(Double.valueOf(decimalFormatter.format(overallstat.getSum() / overallstat.getCount())));
 	}
+
 }
