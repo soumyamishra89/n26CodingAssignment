@@ -69,5 +69,5 @@ returns statistics json with 200 status code
 ##Herokuapp  
 The code is deployed on heroku app and can be accesses via the following API
 
-*Transactions: [https://n26codingchallenge.herokuapp.com/transactions](https://n26codingchallenge.herokuapp.com/transactions)
-*Statistics: [https://n26codingchallenge.herokuapp.com/statistics](https://n26codingchallenge.herokuapp.com/statistics)
+* Transactions: [https://n26codingchallenge.herokuapp.com/transactions](https://n26codingchallenge.herokuapp.com/transactions)  
+* Statistics: [https://n26codingchallenge.herokuapp.com/statistics](https://n26codingchallenge.herokuapp.com/statistics)
