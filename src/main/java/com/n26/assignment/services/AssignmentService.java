@@ -76,7 +76,7 @@ public class AssignmentService {
 
 			}
 		}
-		logger.info("postTransaction: End" + overallstat.toString());
+		logger.info("postTransaction: End");
 		return httpStatus;
 	}
 
@@ -100,7 +100,8 @@ public class AssignmentService {
 			Statistic stat = statisticList.get(currentTime.get(Calendar.SECOND));
 			Calendar statisticTime = Utils.getTimeFromTimeStampWithoutMillis(stat.getTimeStamp());
 			if (statisticTime.compareTo(currentTime) != 0) {
-				resetStatistcis(stat, currentTime);
+				resetStatistics(stat, currentTime);
+				updateOverallStatistics();
 			}
 		}
 		logger.info("updateStatistics: End");
@@ -109,7 +110,7 @@ public class AssignmentService {
 	/**
 	 * Resets the statistics to initial values
 	 */
-	private void resetStatistcis(Statistic stat, Calendar currentTime) {
+	private void resetStatistics(Statistic stat, Calendar currentTime) {
 		stat.setCount(0);
 		stat.setMax(Double.MIN_VALUE);
 		stat.setMin(Double.MAX_VALUE);
@@ -156,7 +157,9 @@ public class AssignmentService {
 		overallstat.setMin(transaction.getAmount() < min ? transaction.getAmount() : min);
 		overallstat.setCount(overallstat.getCount() + 1);
 		overallstat.setSum(Double.valueOf(decimalFormatter.format(overallstat.getSum())));
-		overallstat.setAvg(Double.valueOf(decimalFormatter.format(overallstat.getSum() / overallstat.getCount())));
+		overallstat.setAvg(overallstat.getCount() > 0
+				? Double.valueOf(decimalFormatter.format(overallstat.getSum() / overallstat.getCount()))
+				: 0);
 
 	}
 
@@ -173,7 +176,10 @@ public class AssignmentService {
 			overallstat.setCount(overallstat.getCount() + stat.getCount());
 		});
 		overallstat.setSum(Double.valueOf(decimalFormatter.format(overallstat.getSum())));
-		overallstat.setAvg(Double.valueOf(decimalFormatter.format(overallstat.getSum() / overallstat.getCount())));
+
+		overallstat.setAvg(overallstat.getCount() > 0
+				? Double.valueOf(decimalFormatter.format(overallstat.getSum() / overallstat.getCount()))
+				: 0);
 	}
 
 }
